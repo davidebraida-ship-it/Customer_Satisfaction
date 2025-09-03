@@ -173,12 +173,11 @@
   </div>
 
   <!-- ✅ EmailJS SDK -->
-  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
-  <script>
-    (function() {
-      emailjs.init("uOqqEdEZ3x5KUdium"); // ← Sostituisci con il tuo ID utente EmailJS
-    })();
-  </script>
+
+<script type="module">
+  import emailjs from 'https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js';
+  emailjs.init("uOqqEdEZ3x5KUdium"); // Sostituisci con la tua Public Key
+</script>
 
   <script>
     function sync(el, idx){
