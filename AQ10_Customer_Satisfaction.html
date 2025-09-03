@@ -1,0 +1,294 @@
+
+<!DOCTYPE html>
+<!-- saved from url=(0080)file:///C:/Users/davide.braida/Desktop/cruscotto_valutazione_bn_table_loghi.html -->
+<html lang="it"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Valutazione soddisfazione cliente — RALC Italia</title>
+<style>
+  :root{--line:#e6e6e6;}
+  *{box-sizing:border-box}
+  body{margin:0;background:#fff;color:#000;font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Arial, sans-serif}
+  .wrap{max-width:1024px;margin:0 auto;padding:28px 22px}
+  .hero{background:#000;display:flex;align-items:center;justify-content:center;margin-bottom:12px}
+  .brand{display:flex;align-items:center;gap:30px}
+  .brand-left img{padding-left: 15px;padding-top: 15px;padding-bottom: 15px;}
+  .brand-right img{padding-top: 15px;padding-bottom: 15px;padding-right: 15px;}
+  h1{color:#fff;font-size:22px;margin:10px 0 2px 0;font-weight:900;text-transform:uppercase;letter-spacing:.04em}
+  .subtitle{color:#fff;font-size:14px;margin-bottom:8px}
+  .meta-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:10px 0 16px}
+  .meta-grid label{display:block;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
+  .meta-grid input{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:8px;font:inherit}
+  .box{}
+  .box-offset{grid-column: 2;}
+  .meta-grid.box:last-child{grid-column-start: span 1;}
+  table{width:100%;border-collapse:collapse;margin-top:8px;border:1px solid var(--line)}
+  thead th{background:#000;color:#fff;text-align:left;padding:12px 10px;font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+  tbody td{border-top:1px solid var(--line);padding:12px 10px;vertical-align:middle}
+  td.sec{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#222;white-space:nowrap}
+  td.voce{font-size:15px}
+  td.punteggio{min-width:260px}
+  td.val{width:70px;text-align:right;font-weight:900;font-variant-numeric:tabular-nums}
+  td.note{width:260px}
+  input[type=text]{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:8px;font:inherit}
+  input[type=range]{-webkit-appearance:none;width:100%;height:8px;border-radius:999px;background:#dcdcdc;outline:none}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:22px;height:22px;border-radius:50%;background:#000;border:4px solid #fff;box-shadow:0 0 0 2px #000;cursor:pointer}
+  input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:#000;border:4px solid #fff;box-shadow:0 0 0 2px #000;cursor:pointer}
+  .scale{display:flex;justify-content:space-between;font-size:11px;color:#666;margin-top:6px}
+  .footer{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:16px;border-top:1px solid var(--line);padding-top:14px}
+  button{appearance:none;border:1px solid #000;background:#000;color:#fff;border-radius:10px;padding:10px 14px;font-weight:800;cursor:pointer}
+  button.secondary{background:#fff;color:#000}
+  .media{margin-left:auto;color:#444;font-size:14px}
+  .block{margin-top:14px}
+  .block label{display:block;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
+  textarea{width:100%;border:1px solid var(--line);border-radius:10px;padding:10px;font:inherit;min-height:80px}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+	  <div class="brand">
+		  <div class="brand-left">
+			<img src="https://www.ralcitalia.com/wp-content/uploads/2021/10/logo_ralc_italia_ok.png" class="img-fluid loading" alt="RALC">
+		  </div>
+		  <div>
+			<h1>Valutazione soddisfazione cliente</h1>
+			<div class="subtitle">Punteggio da 1 a 10 — predefinito 10, il compilatore può ridurre.</div>
+		  </div>
+		  <div class="brand-right">
+			<img src="https://www.ralcitalia.com/wp-content/uploads/2021/10/Logo-CONNI-bianco-payoff.png" class="img-fluid loading" alt="CONNI">
+		  </div>
+		</div>
+	 </div>
+
+    <div class="meta-grid">
+      <div class="box"><div><label>Cliente</label><input id="m_cliente" type="text" placeholder=""></div></div>
+      <div class="box"><div><label>Commessa</label><input id="m_commessa" type="text" placeholder=""></div></div>
+      <div class="box"><div><label>Modello</label><input id="m_modello" type="text" placeholder=""></div></div>
+      <div class="box-offset"><div><label>Data collaudo</label><input id="m_data" type="date" placeholder=""></div></div>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Sezione</th>
+          <th>Voce</th>
+          <th style="min-width:260px">Punteggio</th>
+          <th style="width:70px;text-align:right">Valore</th>
+          <th style="width:260px">Note</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+          <tr>
+            <td class="sec">Fase commerciale</td>
+            <td class="voce">Tempestività e chiarezza dell’offerta</td>
+            <td class="punteggio">
+              <input type="range" min="1" max="10" step="1" value="10" data-key="Fase commerciale — Tempestività e chiarezza dell’offerta" oninput="sync(this, 0)">
+              <div class="scale"><span>1</span><span>10</span></div>
+            </td>
+            <td class="val" id="v0">10</td>
+            <td class="note"><input type="text" placeholder="Note..." id="n0"></td>
+          </tr>
+        
+          <tr>
+            <td class="sec">Fase commerciale</td>
+            <td class="voce">Competitività economica</td>
+            <td class="punteggio">
+              <input type="range" min="1" max="10" step="1" value="10" data-key="Fase commerciale — Competitività economica" oninput="sync(this, 1)">
+              <div class="scale"><span>1</span><span>10</span></div>
+            </td>
+            <td class="val" id="v1">10</td>
+            <td class="note"><input type="text" placeholder="Note..." id="n1"></td>
+          </tr>
+        
+          <tr>
+            <td class="sec">Progettazione e costruzione</td>
+            <td class="voce">Adeguatezza della soluzione tecnica</td>
+            <td class="punteggio">
+              <input type="range" min="1" max="10" step="1" value="10" data-key="Progettazione e costruzione — Adeguatezza della soluzione tecnica" oninput="sync(this, 2)">
+              <div class="scale"><span>1</span><span>10</span></div>
+            </td>
+            <td class="val" id="v2">10</td>
+            <td class="note"><input type="text" placeholder="Note..." id="n2"></td>
+          </tr>
+        
+          <tr>
+            <td class="sec">Progettazione e costruzione</td>
+            <td class="voce">Comunicazione e disponibilità del personale tecnico</td>
+            <td class="punteggio">
+              <input type="range" min="1" max="10" step="1" value="10" data-key="Progettazione e costruzione — Comunicazione e disponibilità del personale tecnico" oninput="sync(this, 3)">
+              <div class="scale"><span>1</span><span>10</span></div>
+            </td>
+            <td class="val" id="v3">10</td>
+            <td class="note"><input type="text" placeholder="Note..." id="n3"></td>
+          </tr>
+        
+          <tr>
+            <td class="sec">Installazione e collaudo</td>
+            <td class="voce">Rispetto tempi di consegna e installazione</td>
+            <td class="punteggio">
+              <input type="range" min="1" max="10" step="1" value="10" data-key="Installazione e collaudo — Rispetto tempi di consegna e installazione" oninput="sync(this, 4)">
+              <div class="scale"><span>1</span><span>10</span></div>
+            </td>
+            <td class="val" id="v4">10</td>
+            <td class="note"><input type="text" placeholder="Note..." id="n4"></td>
+          </tr>
+        
+          <tr>
+            <td class="sec">Installazione e collaudo</td>
+            <td class="voce">Professionalità e chiarezza della formazione</td>
+            <td class="punteggio">
+              <input type="range" min="1" max="10" step="1" value="10" data-key="Installazione e collaudo — Professionalità e chiarezza della formazione" oninput="sync(this, 5)">
+              <div class="scale"><span>1</span><span>10</span></div>
+            </td>
+            <td class="val" id="v5">10</td>
+            <td class="note"><input type="text" placeholder="Note..." id="n5"></td>
+          </tr>
+        
+          <tr>
+            <td class="sec">Assistenza e post-vendita</td>
+            <td class="voce">Rapidità e competenza del supporto tecnico</td>
+            <td class="punteggio">
+              <input type="range" min="1" max="10" step="1" value="10" data-key="Assistenza e post-vendita — Rapidità e competenza del supporto tecnico" oninput="sync(this, 6)">
+              <div class="scale"><span>1</span><span>10</span></div>
+            </td>
+            <td class="val" id="v6">10</td>
+            <td class="note"><input type="text" placeholder="Note..." id="n6"></td>
+          </tr>
+        
+      </tbody>
+    </table>
+
+    <div class="block">
+      <label for="note">Note generali</label>
+      <textarea id="note" placeholder="Aggiungi commenti o suggerimenti..."></textarea>
+    </div>
+
+    <div class="footer">
+		<button id="btnScarica">Scarica CSV</button>
+		<button id="btnInvia">Invia via Email</button>
+		<button id="btnReset" class="secondary">Reimposta a 10</button>
+      <div class="media" id="media">Media attuale: 10.0</div>
+    </div>
+  </div>
+
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script type="module">
+
+  // Inizializza EmailJS
+  emailjs.init("tt6UaI6LHoiDohH8g"); // Sostituisci con la tua PUBLIC KEY se diversa
+
+  // Sincronizza slider
+  window.sync = function (el, idx) {
+    document.getElementById('v' + idx).innerText = el.value;
+    aggiornaMedia();
+  }
+
+  // Calcolo media
+  function aggiornaMedia() {
+    const values = Array.from(document.querySelectorAll('input[type=range]')).map(r => Number(r.value));
+    const avg = values.reduce((a, b) => a + b, 0) / values.length;
+    document.getElementById('media').innerText = "Media attuale: " + avg.toFixed(1);
+  }
+
+  // Reset a 10
+  function resetAll() {
+    document.querySelectorAll('input[type=range]').forEach((r, i) => {
+      r.value = 10;
+      document.getElementById('v' + i).innerText = "10";
+    });
+    document.querySelectorAll('input[type=text]').forEach(n => n.value = "");
+    document.getElementById('note').value = "";
+    document.getElementById('m_data').value = "";
+    aggiornaMedia();
+  }
+
+  // Escape per CSV
+  function csvEscape(s) {
+    return '"' + String(s).replace(/"/g, '""') + '"';
+  }
+
+  // Genera CSV stringa
+  function generaCSVString() {
+    const headers = ['Cliente', 'Commessa', 'Modello', 'Data collaudo'];
+    const meta = [
+      document.getElementById('m_cliente').value,
+      document.getElementById('m_commessa').value,
+      document.getElementById('m_modello').value,
+      document.getElementById('m_data').value,
+      ''
+    ];
+    const rows = Array.from(document.querySelectorAll('tbody tr'));
+    const dati = rows.map((tr) => {
+      const tds = tr.querySelectorAll('td');
+      const sezione = tds[0].innerText.trim();
+      const voce = tds[1].innerText.trim();
+      const slider = tr.querySelector('input[type=range]');
+      const val = slider ? slider.value : '';
+      const nota = tr.querySelector('input[type=text]').value.replace(/\n/g, ' ');
+      return [sezione, voce, val, nota];
+    });
+    const noteGenerali = (document.getElementById('note').value || '').replace(/\n/g, ' ');
+    dati.push(['', 'Note generali', '', noteGenerali]);
+
+    let csv = [headers.join(';')];
+    csv.push(meta.map(csvEscape).join(';'));
+    csv.push(['', '', '', ''].join(';'));
+    csv = csv.concat([['Sezione', 'Voce', 'Punteggio', 'Note'].join(';')]);
+    csv = csv.concat(dati.map(r => r.map(csvEscape).join(';')));
+    return csv.join('\r\n');
+  }
+
+  // Scarica CSV
+  function scaricaCSV() {
+    const csv = generaCSVString();
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    const cliente = document.getElementById('m_cliente').value.trim();
+    const commessa = document.getElementById('m_commessa').value.trim();
+    a.href = url;
+    a.download = `AQ10_${commessa}_${cliente}.csv`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
+  // Invia via Email
+  function inviaCSV() {
+    const csvContent = generaCSVString();
+    const cliente = document.getElementById('m_cliente').value.trim();
+    const commessa = document.getElementById('m_commessa').value.trim();
+
+    emailjs.send("service_g03fova", "template_vlvk7ba", {
+      mailcliente: cliente,
+      mailcommessa: commessa,
+      mailmessaggio_csv: csvContent
+    }).then(function (response) {
+      alert("Email inviata con successo!");
+      console.log("SUCCESS!", response.status, response.text);
+    }, function (error) {
+      alert("Errore nell'invio email.");
+      console.error("FAILED...", error);
+    });
+  }
+
+  // Aggiungo event listener ai pulsanti dopo il caricamento
+  window.addEventListener('load', () => {
+    aggiornaMedia();
+
+    document.getElementById('btnScarica').addEventListener('click', scaricaCSV);
+    document.getElementById('btnInvia').addEventListener('click', inviaCSV);
+    document.getElementById('btnReset').addEventListener('click', resetAll);
+  });
+
+  // Esporta in window se serve (non obbligatorio)
+  window.scaricaCSV = scaricaCSV;
+  window.inviaCSV = inviaCSV;
+  window.resetAll = resetAll;
+
+</script>
+</body>
+</html>
