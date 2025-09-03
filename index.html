@@ -172,102 +172,111 @@
     </div>
   </div>
 
-  <!-- ✅ EmailJS SDK -->
 
 <script type="module">
   import emailjs from 'https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js';
-  emailjs.init("uOqqEdEZ3x5KUdium"); // Sostituisci con la tua Public Key
+
+  // Inizializza EmailJS
+  emailjs.init("uOqqEdEZ3x5KUdium"); // Sostituisci con la tua PUBLIC KEY se diversa
+
+  // Sincronizza slider
+  window.sync = function (el, idx) {
+    document.getElementById('v' + idx).innerText = el.value;
+    aggiornaMedia();
+  }
+
+  // Calcolo media
+  function aggiornaMedia() {
+    const values = Array.from(document.querySelectorAll('input[type=range]')).map(r => Number(r.value));
+    const avg = values.reduce((a, b) => a + b, 0) / values.length;
+    document.getElementById('media').innerText = "Media attuale: " + avg.toFixed(1);
+  }
+
+  // Reset a 10
+  window.resetAll = function () {
+    document.querySelectorAll('input[type=range]').forEach((r, i) => {
+      r.value = 10;
+      document.getElementById('v' + i).innerText = "10";
+    });
+    document.querySelectorAll('input[type=text]').forEach(n => n.value = "");
+    document.getElementById('note').value = "";
+    document.getElementById('m_data').value = "";
+    aggiornaMedia();
+  }
+
+  // Escape per CSV
+  function csvEscape(s) {
+    return '"' + String(s).replace(/"/g, '""') + '"';
+  }
+
+  // Genera CSV stringa
+  window.generaCSVString = function () {
+    const headers = ['Cliente', 'Commessa', 'Modello', 'Data collaudo', '', 'Sezione', 'Voce', 'Punteggio', 'Note'];
+    const meta = [
+      document.getElementById('m_cliente').value,
+      document.getElementById('m_commessa').value,
+      document.getElementById('m_modello').value,
+      document.getElementById('m_data').value,
+      ''
+    ];
+    const rows = Array.from(document.querySelectorAll('tbody tr'));
+    const dati = rows.map((tr) => {
+      const tds = tr.querySelectorAll('td');
+      const sezione = tds[0].innerText.trim();
+      const voce = tds[1].innerText.trim();
+      const slider = tr.querySelector('input[type=range]');
+      const val = slider ? slider.value : '';
+      const nota = tr.querySelector('input[type=text]').value.replace(/\n/g, ' ');
+      return [sezione, voce, val, nota];
+    });
+    const noteGenerali = (document.getElementById('note').value || '').replace(/\n/g, ' ');
+    dati.push(['', 'Note generali', '', noteGenerali]);
+
+    let csv = [headers.join(';')];
+    csv.push(meta.map(csvEscape).join(';'));
+    csv.push(['', '', '', ''].join(';'));
+    csv = csv.concat([['Sezione', 'Voce', 'Punteggio', 'Note'].join(';')]);
+    csv = csv.concat(dati.map(r => r.map(csvEscape).join(';')));
+    return csv.join('\r\n');
+  }
+
+  // Scarica CSV
+  window.scaricaCSV = function () {
+    const csv = generaCSVString();
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    const cliente = document.getElementById('m_cliente').value.trim();
+    const commessa = document.getElementById('m_commessa').value.trim();
+    a.href = url;
+    a.download = `AQ10_${commessa}_${cliente}.csv`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
+  // Invia via Email
+  window.inviaCSV = function () {
+    const csvContent = generaCSVString();
+    const cliente = document.getElementById('m_cliente').value.trim();
+    const commessa = document.getElementById('m_commessa').value.trim();
+
+    emailjs.send("service_2lwcive", "template_izjsro4", {
+      mailcliente: cliente,
+      mailcommessa: commessa,
+      mailmessaggio_csv: csvContent
+    }).then(function (response) {
+      alert("Email inviata con successo!");
+      console.log("SUCCESS!", response.status, response.text);
+    }, function (error) {
+      alert("Errore nell'invio email.");
+      console.error("FAILED...", error);
+    });
+  }
+
+  // Avvia al load
+  window.addEventListener('load', aggiornaMedia);
 </script>
-
-  <script>
-    function sync(el, idx){
-      document.getElementById('v'+idx).innerText = el.value;
-      aggiornaMedia();
-    }
-
-    function aggiornaMedia(){
-      const values = Array.from(document.querySelectorAll('input[type=range]')).map(r => Number(r.value));
-      const avg = values.reduce((a,b)=>a+b,0)/values.length;
-      document.getElementById('media').innerText = "Media attuale: " + avg.toFixed(1);
-    }
-
-    function resetAll(){
-      document.querySelectorAll('input[type=range]').forEach((r,i)=>{
-        r.value = 10;
-        document.getElementById('v'+i).innerText = "10";
-      });
-      document.querySelectorAll('input[type=text]').forEach(n => n.value = "");
-      document.getElementById('note').value = "";
-      document.getElementById('m_data').value = "";
-      aggiornaMedia();
-    }
-
-    function csvEscape(s){ return '"' + String(s).replace(/"/g,'""') + '"'; }
-
-    function generaCSVString() {
-      const headers = ['Cliente','Commessa','Modello','Data collaudo','','Sezione','Voce','Punteggio','Note'];
-      const meta = [
-        document.getElementById('m_cliente').value,
-        document.getElementById('m_commessa').value,
-        document.getElementById('m_modello').value,
-        document.getElementById('m_data').value,
-        ''
-      ];
-      const rows = Array.from(document.querySelectorAll('tbody tr'));
-      const dati = rows.map((tr)=>{
-        const tds = tr.querySelectorAll('td');
-        const sezione = tds[0].innerText.trim();
-        const voce = tds[1].innerText.trim();
-        const slider = tr.querySelector('input[type=range]');
-        const val = slider ? slider.value : '';
-        const nota = tr.querySelector('input[type=text]').value.replace(/\n/g,' ');
-        return [sezione, voce, val, nota];
-      });
-      const noteGenerali = (document.getElementById('note').value || '').replace(/\n/g,' ');
-      dati.push(['', 'Note generali', '', noteGenerali]);
-
-      let csv = [headers.join(';')];
-      csv.push(meta.map(csvEscape).join(';'));
-      csv.push(['','','',''].join(';'));
-      csv = csv.concat([['Sezione','Voce','Punteggio','Note'].join(';')]);
-      csv = csv.concat(dati.map(r=>r.map(csvEscape).join(';')));
-      return csv.join('\r\n');
-    }
-
-    function scaricaCSV(){
-      const csv = generaCSVString();
-      const blob = new Blob([csv], {type: 'text/csv;charset=utf-8;'});
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      const cliente = document.getElementById('m_cliente').value.trim();
-      const commessa = document.getElementById('m_commessa').value.trim();
-      a.href = url;
-      a.download = `AQ10_${commessa}_${cliente}.csv`;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-    }
-
-    function inviaCSV() {
-      const csvContent = generaCSVString();
-      const cliente = document.getElementById('m_cliente').value.trim();
-      const commessa = document.getElementById('m_commessa').value.trim();
-
-      emailjs.send("service_2lwcive","template_izjsro4",{
-        mailcliente: cliente,
-        mailcommessa: commessa,
-        mailmessaggio_csv: csvContent,
-      }).then(function(response) {
-        alert("Email inviata con successo!");
-        console.log("SUCCESS!", response.status, response.text);
-      }, function(error) {
-        alert("Errore nell'invio email.");
-        console.error("FAILED...", error);
-      });
-    }
-
-    window.addEventListener('load', aggiornaMedia);
-  </script>
 </body>
 </html>
