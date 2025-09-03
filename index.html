@@ -255,10 +255,10 @@
       const cliente = document.getElementById('m_cliente').value.trim();
       const commessa = document.getElementById('m_commessa').value.trim();
 
-      emailjs.send("service_2lwcive", "template_izjsro4", {
+      emailjs.send("service_2lwcive","template_izjsro4",{
         mailcliente: cliente,
         mailcommessa: commessa,
-        mailmessaggio_csv: csvContent
+        mailmessaggio_csv: csvContent,
       }).then(function(response) {
         alert("Email inviata con successo!");
         console.log("SUCCESS!", response.status, response.text);
