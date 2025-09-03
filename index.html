@@ -7,7 +7,7 @@
 <style>
   :root{--line:#e6e6e6;}
   *{box-sizing:border-box}
-  body{margin:0;background:#fff;color:#000;font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Arial, sans-serif}
+  body{margin:0;background:#fff;color:#020;font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Arial, sans-serif}
   .wrap{max-width:1024px;margin:0 auto;padding:28px 22px}
   .hero{background:#000;display:flex;align-items:center;justify-content:center;margin-bottom:12px}
   .brand{display:flex;align-items:center;gap:30px}
@@ -256,9 +256,9 @@
       const commessa = document.getElementById('m_commessa').value.trim();
 
       emailjs.send("service_2lwcive","template_izjsro4",{
-        mailcliente: cliente,
-        mailcommessa: commessa,
-        mailmessaggio_csv: csvContent,
+        mailcliente: 'a',
+        mailcommessa: 'b',
+        mailmessaggio_csv: 'c',
       }).then(function(response) {
         alert("Email inviata con successo!");
         console.log("SUCCESS!", response.status, response.text);
